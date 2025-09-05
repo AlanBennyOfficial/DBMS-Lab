@@ -1,0 +1,27 @@
+-- -- select * from department;
+
+-- create view empdeptview as 
+--     select e.EMPNAME, e.DOB, e.SALARY, d.DEPTID, d.DEPTNAME, d.DEPTLOC, 
+--     from Employee e , Department d 
+--     where e.deptid=5;
+-- 👆does not work, written in the notes.
+
+CREATE VIEW empdeptview AS 
+SELECT e.EMPNAME, e.DOB, e.SALARY, d.DEPTID, d.DEPTNAME, d.DEPTLOC
+FROM Employee e, Department d 
+WHERE e.deptid = d.DEPTID AND e.deptid = 5;
+
+
+-- select * from Employee, department;
+
+select * from empdeptview 
+    where salary >= 35000 and salary <= 50000;
+
+select * from empdeptview
+	where DEPTNAME = 'Sales';
+
+select * from empdeptview
+	where not DEPTNAME = 'HR';
+
+select * from empdeptview
+	where not DEPTNAME = 'Sales' and deptloc = 'Chennai';

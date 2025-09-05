@@ -1,0 +1,131 @@
+-- Continuation of Lab 5
+create table Department( 
+    DeptId number(10), 
+    DeptName char(50), 
+    DeptLoc char(50) 
+);
+
+create table Employee( 
+    EmpId number(10), 
+    EmpName char(50), 
+    DOB date, 
+    DOJ date, 
+    Job char(30), 
+    Salary number(10) 
+);
+
+create table Product( 
+    ProdID number(10), 
+    ProdName char(30), 
+    Price number(10) 
+);
+
+create table Sales( 
+    SalesID number(10), 
+    SDate date, 
+    Quantity number(10) 
+);
+
+insert into Department values(1212,'Tech','Arizona');
+insert into Department values(2222,'Art','France');
+insert into Department values(3332,'Philosophy','Germany');
+insert into Department values(4443,'Music','China');
+insert into Department values(5556,'Science','USA');
+insert into Department values(6665,'Music','India');
+insert into Department values(7776,'Finance','Japan');
+insert into Department values(3887,'Sales','Russia');
+insert into Department values(9998,'IT','Norway');
+insert into Department values(9999,'Hardware','Taiwan');
+
+select * from Department;
+
+insert into Employee values(1212,'A',date'2000-01-01',date'2020-09-30','Data',50000);
+insert into Employee values(2222,'B',date'2000-02-02',date'2020-09-30','Exist',900000);
+insert into Employee values(3333,'C',date'2000-03-03',date'2020-09-30','Think',90000);
+insert into Employee values(4443,'D',date'2000-04-04',date'2020-09-30','Create',49000);
+insert into Employee values(5554,'E',date'2000-05-05',date'2020-09-30','Find',50000);
+insert into Employee values(6665,'F',date'2000-06-06',date'2020-09-30','Make',53000);
+insert into Employee values(7776,'G',date'2000-07-07',date'2020-09-30','Budget',56000);
+insert into Employee values(8887,'H',date'2000-08-08',date'2020-09-30','Profit',58000);
+insert into Employee values(9998,'I',date'2000-09-09',date'2020-09-30','PRG',45000);
+insert into Employee values(9999,'J',date'2000-10-10',date'2020-09-30','Make',95000);
+
+insert into Product values(9998,'PROGRAM',45000);
+insert into Product values(999,'PNG',45000);
+insert into Product values(99,'AIR',45000);
+insert into Product values(9,'IDEA',41000);
+insert into Product values(19,'RADIO',45000);
+insert into Product values(990,'PENS',45000);
+insert into Product values(991,'MIFO',45000);
+insert into Product values(919,'DATA',43000);
+insert into Product values(185,'DEVICES',45000);
+insert into Product values(8465,'MOUSE',45000);
+insert into Product values(8165,date'2032-08-05',45000);
+
+insert into Sales values(8465,date'2032-08-05',40000);
+insert into Sales values(875,date'2032-08-06',45000);
+insert into Sales values(85,date'2032-08-06',45000);
+insert into Sales values(81,date'2023-08-06',45000);
+insert into Sales values(9,date'2023-08-06',45000);
+insert into Sales values(10,date'2023-08-08',45000);
+insert into Sales values(11,date'2023-08-08',45000);
+insert into Sales values(12,date'2023-08-08',115000);
+insert into Sales values(3,date'2023-08-06',45000);
+insert into Sales values(44,date'2023-08-06',115000);
+
+-- update the tables
+
+ALTER TABLE Department ADD CONSTRAINT pk_dept PRIMARY KEY (DeptId);
+
+ALTER TABLE Employee ADD CONSTRAINT pk_emp PRIMARY KEY (EmpId);
+
+ALTER TABLE Employee ADD DeptId NUMBER(5);
+ALTER TABLE Employee ADD CONSTRAINT fk_dept FOREIGN KEY (DeptId)
+    REFERENCES Department(DeptId);
+
+DESC Department;
+DESC Employee;
+
+UPDATE Employee SET DeptId = 1212 WHERE EmpId = 1212;
+UPDATE Employee SET DeptId = 2222 WHERE EmpId = 2222;
+UPDATE Employee SET DeptId = 3333 WHERE EmpId = 3333;
+UPDATE Employee SET DeptId = 4443 WHERE EmpId = 4443;
+UPDATE Employee SET DeptId = 5554 WHERE EmpId = 5554;
+UPDATE Employee SET DeptId = 6665 WHERE EmpId = 6665;
+UPDATE Employee SET DeptId = 7776 WHERE EmpId = 7776;
+UPDATE Employee SET DeptId = 8887 WHERE EmpId = 8887;
+-- 👆this statement may return some errors
+
+UPDATE Employee SET DeptId = 9998 WHERE EmpId = 9998;
+UPDATE Employee SET DeptId = 9999 WHERE EmpId = 9999;
+
+SELECT * FROM Employee;
+
+ALTER TABLE Sales ADD EmpId NUMBER(5);
+ALTER TABLE Sales ADD CONSTRAINT fk_emp FOREIGN KEY (EmpId)
+    REFERENCES Employee(EmpId);
+
+ALTER TABLE Sales ADD ProdId NUMBER(5);
+ALTER TABLE Sales ADD CONSTRAINT fk_prod FOREIGN KEY (ProdId)
+    REFERENCES Product(ProdId);
+
+desc sales;
+
+UPDATE Sales SET EmpId = 1212, ProdId = 9998 WHERE SalesId = 8465;
+UPDATE Sales SET EmpId = 2222, ProdId = 999 WHERE SalesId = 845;
+UPDATE Sales SET EmpId = 3333, ProdId = 99 WHERE SalesId = 85;
+UPDATE Sales SET EmpId = 4443, ProdId = 9 WHERE SalesId = 8;
+UPDATE Sales SET EmpId = 5554, ProdId = 19 WHERE SalesId = 9;
+UPDATE Sales SET EmpId = 6665, ProdId = 990 WHERE SalesId = 10;
+UPDATE Sales SET EmpId = 7776, ProdId = 9191 WHERE SalesId = 11;
+UPDATE Sales SET EmpId = 8887, ProdId = 919 WHERE SalesId = 12;
+UPDATE Sales SET EmpId = 9998, ProdId = 485 WHERE SalesId = 13;
+UPDATE Sales SET EmpId = 9999, ProdId = 8765 WHERE SalesId = 14;
+
+select * from sales;
+
+ALTER TABLE Sales MODIFY (SalesID NUMBER(10) NOT NULL);
+ALTER TABLE Sales MODIFY (SDate DATE NOT NULL);
+ALTER TABLE Sales MODIFY (Quantity NUMBER(10) NOT NULL);
+ALTER TABLE Sales MODIFY (EmpId NUMBER(10) NOT NULL);
+ALTER TABLE Sales MODIFY (ProdId NUMBER(10) NOT NULL);
