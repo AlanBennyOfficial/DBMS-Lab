@@ -19,3 +19,8 @@ END find_prime_numbers;
 /
 EXEC find_prime_numbers(20);
 -- 👆 prime numbers
+
+SELECT * FROM
+  Employee
+WHERE
+  MONTHS_BETWEEN(SYSDATE, DoJ) > 24;
