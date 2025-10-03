@@ -42,3 +42,29 @@ BEGIN
    dbms_output.put_line(' Square of (23): ' || a); 
 END; 
 /
+
+---
+
+CREATE OR REPLACE PROCEDURE Get_Salary_Sum_By_Location(p_Location IN VARCHAR2) AS
+v_TotalSalary NUMBER := 0;
+BEGIN
+	SELECT SUM(e.Salary)
+	INTO v_TotalSalary
+	FROM Employee e
+	JOIN Department d ON e.DeptId = d.DeptId
+	WHERE d.DeptLoc = p_Location;
+
+	DBMS_OUTPUT.PUT_LINE('Total salary for employees in location ' || p_Location ||'is: ' || v_TotalSalary);
+
+	EXCEPTION
+		WHEN NO_DATA_FOUND THEN
+			DBMS_OUTPUT.PUT_LINE('No employees found in location: ' || p_Location);
+		WHEN OTHERS THEN
+			DBMS_OUTPUT.PUT_LINE('An error occured: ' || SQLERRM);
+END;
+/
+SET SERVEROUTPUT ON;
+BEGIN
+	Get_Salary_Sum_By_Location('Chennai');
+END;
+/
