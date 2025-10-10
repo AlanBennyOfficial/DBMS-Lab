@@ -1,0 +1,58 @@
+-- Simple Oracle SQL script to demonstrate DML, DDL, and Logon triggers
+-- For Oracle Live SQL 24.4.1 on Database 19c
+-- Note: Logon trigger fires on schema logon. In Live SQL, test by running in a new session/tab after creation.
+-- Use DBMS_OUTPUT to show messages; enable it with SET SERVEROUTPUT ON;
+-- Due to Live SQL restrictions, DDL and Logon triggers use DBMS_OUTPUT only (no INSERT).
+
+SET SERVEROUTPUT ON;
+
+-- Create a simple log table to record events (used by DML trigger only)
+CREATE TABLE trigger_log (
+    event_type VARCHAR2(20),
+    event_time TIMESTAMP,
+    details VARCHAR2(100)
+);
+
+-- Create sample table for DML trigger
+CREATE TABLE test_table (id NUMBER);
+
+-- DML Trigger: Fires after INSERT on test_table
+CREATE OR REPLACE TRIGGER dml_trigger
+AFTER INSERT ON test_table
+FOR EACH ROW
+BEGIN
+    INSERT INTO trigger_log VALUES ('DML', SYSTIMESTAMP, 'Inserted ID: ' || :NEW.id);
+    DBMS_OUTPUT.PUT_LINE('DML Trigger fired');
+END;
+/
+
+-- DDL Trigger: Fires after CREATE in schema
+CREATE OR REPLACE TRIGGER ddl_trigger
+AFTER CREATE ON SCHEMA
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('DDL Trigger fired: Created ' || ORA_DICT_OBJ_NAME);
+END;
+/
+
+-- Logon Trigger: Fires after logon to schema
+CREATE OR REPLACE TRIGGER logon_trigger
+AFTER LOGON ON SCHEMA
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Logon Trigger fired: User ' || USER || ' logged on');
+END;
+/
+
+-- Demonstrate DML: Insert to fire DML trigger
+INSERT INTO test_table VALUES (1);
+
+-- Demonstrate DDL: Create another table to fire DDL trigger
+CREATE TABLE another_table (id NUMBER);
+
+-- To see Logon: Run in a new Live SQL session/tab, then query trigger_log
+
+-- View log (will show DML event only due to restrictions)
+SELECT * FROM trigger_log;
+
+---
+
+
