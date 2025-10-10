@@ -55,4 +55,6 @@ SELECT * FROM trigger_log;
 
 ---
 
-
+drop table trigger_log;
+drop table test_table;
+drop table another_table;
