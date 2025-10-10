@@ -4,7 +4,7 @@
 -- Use DBMS_OUTPUT to show messages; enable it with SET SERVEROUTPUT ON;
 -- Due to Live SQL restrictions, DDL and Logon triggers use DBMS_OUTPUT only (no INSERT).
 
-SET SERVEROUTPUT ON;
+-- SET SERVEROUTPUT ON;
 
 -- Create a simple log table to record events (used by DML trigger only)
 CREATE TABLE trigger_log (
