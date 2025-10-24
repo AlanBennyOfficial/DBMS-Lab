@@ -26,6 +26,9 @@ CREATE OR REPLACE TRIGGER insert_trigger
 -- END;
 -- /
 
+-- 👆 Syllabus Q12
+
+
 -- DELETE FROM Employee where EmpId = 1;
 -- select * from Employee;
 -- select * from OldEmployee;
