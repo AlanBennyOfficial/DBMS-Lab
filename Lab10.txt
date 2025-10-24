@@ -45,3 +45,7 @@ CREATE OR REPLACE TRIGGER insert_trigger
 -- /
 
 -- 👆 Syllabus Q13
+
+-- ALTER TABLE OLDEMPLOYEE
+-- ADD SALARY NUMBER(10) DEFAULT 0;
+
