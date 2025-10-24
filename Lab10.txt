@@ -26,9 +26,22 @@ CREATE OR REPLACE TRIGGER insert_trigger
 -- END;
 -- /
 
--- 👆 Syllabus Q12
-
-
 -- DELETE FROM Employee where EmpId = 1;
 -- select * from Employee;
 -- select * from OldEmployee;
+
+-- 👆 Syllabus Q12
+
+-- CREATE OR REPLACE TRIGGER restrict_delete
+--     BEFORE DELETE 
+--     ON Employee
+--     FOR EACH ROW
+-- BEGIN
+--     IF (SQL%ROWCOUNT > 2) THEN
+--         DBMS_OUTPUT.PUT_LINE('Do not delete more than 2 rows at a time.');
+--         ROLLBACK;
+--     END IF;
+-- END;
+-- /
+
+-- 👆 Syllabus Q13
