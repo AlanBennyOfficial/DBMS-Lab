@@ -16,13 +16,16 @@
 -- INSERT INTO Employee (EmpId, FirstName)
 -- VALUES (3, 'Sam');
 
--- CREATE OR REPLACE insert_trigger
+CREATE OR REPLACE TRIGGER insert_trigger
 -- 	AFTER DELETE 
 -- 	ON Employee
--- AS
+-- 	FOR EACH ROW
 -- BEGIN
--- 	IF DELETING THEN
--- 		INSERT INTO OldEmployee(EmpID, Name)
--- 		SELECT EmpID, Name
--- 		FROM DELETED;
+-- 		INSERT INTO OldEmployee(EmpID, FirstName)
+-- 		VALUES( :old.EmpId, :old.FirstName);
 -- END;
+-- /
+
+-- DELETE FROM Employee where EmpId = 1;
+-- select * from Employee;
+-- select * from OldEmployee;
